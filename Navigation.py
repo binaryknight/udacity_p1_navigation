@@ -12,13 +12,13 @@ import numpy as np
 from src.dqn_agent import Agent
 
 def train( env 
-           ,min_performance = 2
-          , num_episodes =1800
-          , window_size = 100
+           ,min_performance = 13
+          , num_episodes    = 1800
+          , window_size     = 100
           , local_save_filename   = 'model.pt'
           , target_save_filename  = 'model_target.pt'
-          , local_load_filename   = None
-          , target_load_filename  = None ):
+          , local_load_filename   =  None
+          , target_load_filename  =  None ):
     
     # Environments contain **_brains_** which are responsible for deciding the actions of their associated agents.
     # Here we check for the first brain available, and set it as the default brain we will be controlling from Python.
@@ -45,7 +45,8 @@ def train( env
     ### Loop over number of episodes
     eps = 1.0
     ### Storage for scores 
-    scores = []
+    scores     = []
+    avg_scores = []
     scores_window = deque(maxlen = window_size)
     for e in range(num_episodes):
         # initialize the score
@@ -72,13 +73,14 @@ def train( env
         scores_window.append(score)
         ## Check if the minimum threshold for the reward has been achieved
         avg_score = np.mean(scores_window) 
-        print("""Score:  {:.2f} average score: {:.2f}  over episodes: {}""".format(score, avg_score, min((e+1), window_size))) 
+        avg_scores.append(avg_score)
+        print("""Episode: {} Score:  {:.2f} average score: {:.2f}  over episodes: {}""".format((e+1), score, avg_score, min((e+1), window_size))) 
         if avg_score >= min_performance:
-            print('Environment solved in {:d} episodes!\\tAverage Score: {:.2f}'.format(e, np.mean(scores_window)))
+            print('Environment solved in {:d} episodes!\\tAverage Score: {:.2f}'.format((e+1), np.mean(scores_window)))
             break
     agent.save(local_save_filename, target_save_filename)
     # When finished, you can close the environment.
-    return(e, avg_score, scores)
+    return(e, avg_scores, scores)
 
 def run(env, num_episodes = 1, local_filename = 'model.pt'):
     # Environment Setup
@@ -121,19 +123,20 @@ def run(env, num_episodes = 1, local_filename = 'model.pt'):
         ## Append the scores
         scores.append(score)
         return(scores)
-       
     
 def main():
     ## Load the unity app
     env    = UnityEnvironment(file_name="Banana.app")
-    num_episodes,  avg_score, scores = train(env, num_episodes = 2000)
+    num_episodes,  avg_scores, scores = train(env, num_episodes = 2000)
     pdb.set_trace()
     ### Plot the training scores
     fig = plt.figure()
     ax  = fig.add_subplot(111)
     plt.plot(np.arange(len(scores)), scores)
-    plt.ylabel('Score')
+    plt.plot(np.arange(len(avg_scores)), avg_scores)
+    plt.ylabel('Score and Average Scores ')
     plt.xlabel('Episode #')
+    plt.legend(['Score', 'Average Score'], loc = 'upper left')
     plt.show()
 
     ### 
