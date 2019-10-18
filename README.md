@@ -1,4 +1,4 @@
-# Submission Project 1: Navigation
+# Navigation Project Submission
 
 ## Introduction
 
