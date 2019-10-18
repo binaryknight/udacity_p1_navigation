@@ -9,10 +9,10 @@ from unityagents import UnityEnvironment
 import numpy as np
 
 ### Get the DQN agent
-from src.dqn_agent import Agent
+from src.double_dqn_agent import Agent
 
 def train( env 
-           ,min_performance = 13
+           ,min_performance = 3
           , num_episodes    = 1800
           , window_size     = 100
           , local_save_filename   = 'model.pt'
@@ -54,7 +54,7 @@ def train( env
         env_info = env.reset(train_mode=True)[brain_name] # reset the environment
         state    = env_info.vector_observations[0]            # get the current state
         while True:
-            eps        = max(eps*0.8, 0.001)     
+            eps        = max(eps*0.8, 0.0001)     
             action     = agent.act(state, eps)                 # select an action 
             env_info   = env.step(action)[brain_name]          # send the action to the environment
             next_state = env_info.vector_observations[0]       # get the next state
@@ -127,8 +127,8 @@ def run(env, num_episodes = 1, local_filename = 'model.pt'):
 def main():
     ## Load the unity app
     env    = UnityEnvironment(file_name="Banana.app")
-    num_episodes,  avg_scores, scores = train(env, num_episodes = 2000)
-    pdb.set_trace()
+    num_episodes,  avg_scores, scores = train(env, num_episodes = 1000)
+    
     ### Plot the training scores
     fig = plt.figure()
     ax  = fig.add_subplot(111)
@@ -142,5 +142,5 @@ def main():
     ### 
     scores = run(env, num_episodes = 1, local_filename = 'model.pt')
     env.close()
-    pdb.set_trace()
+    
     
