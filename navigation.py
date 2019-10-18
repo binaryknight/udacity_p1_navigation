@@ -97,14 +97,14 @@ def train( env
     return(e, avg_scores, scores)
 
 def run(env, num_episodes = 1, local_filename = 'model.pt'):
-        """
+    """
         Params
         ======
             env : Unity environment
             num_episoodes(int):  number of episodes to use to evaluate the agent
             local_filename:      the file that contains the weights of the trained agent
         """
-
+    
     # Environment Setup
     brain_name = env.brain_names[0]
     brain = env.brains[brain_name]
