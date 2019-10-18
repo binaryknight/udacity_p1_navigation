@@ -1,3 +1,3 @@
 # Navigation Project Submission
 
-(/training.performance.png)
+![Training Scores and Average core](/training.performance.png)
