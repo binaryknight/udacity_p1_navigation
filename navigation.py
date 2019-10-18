@@ -20,6 +20,20 @@ def train( env
           , target_save_filename  = 'model_target.pt'
           , local_load_filename   =  None
           , target_load_filename  =  None ):
+
+    """Train an agent using Double DQN.
+        
+        Params
+        ======
+            env : Unity environment
+            num_episoodes(int):  maximum number of episodes to use to train the agent
+            window_size (int) :  the length of the running average window used to compute the average score
+            local_save_filename: the file where the local NN weights will be saved
+            target_save_filename: the file where the target NN weights will be saved  
+            local_load_filename: if given, the initial weights of the local NN
+            target_load_filename: if given, the initial weights if the target NN
+        """
+
     
     # Environments contain **_brains_** which are responsible for deciding the actions of their associated agents.
     # Here we check for the first brain available, and set it as the default brain we will be controlling from Python.
@@ -35,9 +49,7 @@ def train( env
     # number of actions
     action_size = brain.vector_action_space_size
     print('Number of actions:', action_size)
-    # examine the state space 
     state = env_info.vector_observations[0]
-    print('States look like:', state)
     state_size = len(state)
     print('States have length:', state_size)
     
@@ -78,13 +90,21 @@ def train( env
         if (e+1) % 50 == 1: 
             print("""Episode: {} Score:  {:.2f} average score: {:.2f}  over episodes: {}""".format((e+1), score, avg_score, min((e+1), window_size)), end = '\r') 
         if avg_score >= min_performance:
-            print('\n Environment solved in {:d} episodes! \tAverage Score: {:.2f}'.format((e+1), np.mean(scores_window)))
+            print('\nEnvironment solved in {:d} episodes! \tAverage Score: {:.2f}'.format((e+1), np.mean(scores_window)))
             break
     agent.save(local_save_filename, target_save_filename)
     # When finished, you can close the environment.
     return(e, avg_scores, scores)
 
 def run(env, num_episodes = 1, local_filename = 'model.pt'):
+        """
+        Params
+        ======
+            env : Unity environment
+            num_episoodes(int):  number of episodes to use to evaluate the agent
+            local_filename:      the file that contains the weights of the trained agent
+        """
+
     # Environment Setup
     brain_name = env.brain_names[0]
     brain = env.brains[brain_name]
