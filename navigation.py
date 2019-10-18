@@ -88,7 +88,7 @@ def train( env
         avg_score = np.mean(scores_window) 
         avg_scores.append(avg_score)
         if (e+1) % 50 == 1: 
-            print("""Episode: {} Score:  {:.2f} average score: {:.2f}  over episodes: {}""".format((e+1), score, avg_score, min((e+1), window_size)), end = '\r') 
+            print("""Episode: {} Score:  {:.2f} average score: {:.2f}  over episodes: {}""".format((e+1), score, avg_score, min((e+1), window_size))) 
         if avg_score >= min_performance:
             print('\nEnvironment solved in {:d} episodes! \tAverage Score: {:.2f}'.format((e+1), np.mean(scores_window)))
             break
