@@ -39,5 +39,8 @@ The project uses environments from Unity.  In order to make the environments wor
 - The task is episodic.
 
 ### Instructions
-Run the  `Navigation-submission.ipynb` to train and evaluate the agent.  
+Run the  `Navigation-submission.ipynb` to train and evaluate the agent. 
+
+### Information
+The code in this repo is heavily-based on the code given in the Udacity Nano Degree  Program resources.
 
