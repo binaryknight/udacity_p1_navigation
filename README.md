@@ -5,10 +5,10 @@
 In this project , agent is trained using the Double DQN algorithm to navigate (and collect bananas!) in a large, square world.  
 
 ### Setup
-The project uses 
-
-
-1. Download the environment from one of the links below matching your environment your operating system:
+The project uses environments from Unity.  In order to make the environments work:
+1. Install the unityagents package using:
+   * pip install unityagents --no-deps. 
+2. Download the environment from one of the links below matching your environment your operating system:
     - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
     - Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana.app.zip)
     - Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86.zip)
@@ -18,7 +18,8 @@ The project uses
 
     (_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux_NoVis.zip) to obtain the environment.
 
-2. Place the file in this folder, and unzip (or decompress) the file. 
+3. Place the file in this folder, and unzip (or decompress) the file. 
+
 
 ## Environment
 
